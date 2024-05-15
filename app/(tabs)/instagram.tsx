@@ -1,6 +1,9 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Dropdown } from 'react-native-element-dropdown';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
 
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -19,6 +22,8 @@ import foto2 from "../../assets/tutorial/foto2.png";
 import foto3 from "../../assets/tutorial/foto3.png";
 import foto4 from "../../assets/tutorial/foto4.png";
 import image from "../../assets/tutorial/image.png";
+import { useEffect, useState } from 'react';
+import { getGroups } from '@/services/api.service';
 
 const DATA = [
   {
@@ -64,16 +69,52 @@ const DATA = [
 ];
 
 export default function InstagramScreen() {
+  const [grupo, setGrupo] = useState(3);
+  const [groups, setGroups] = useState([]);
+
+  const loadGroups = async () => {
+    try {
+      const groups = await getGroups();
+      setGroups(groups);
+    } catch (error) {
+      console.error('Erro ao pegar os grupos:', error);
+    } finally {
+      console.log("Busca finalizada.")
+    }
+  };
+
+  useEffect(() => {
+    loadGroups();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        {/* <Logo width={127} height={49} /> */}
-        <Image
-          // style={styles.storesCardImage}
-          source={require('../../assets/tutorial/logo.svg')}
-        />
-        {/* <Ionicons size={90} name="logo-instagram" style={{color:'#fff'}} /> */}
+        <Image source={require('../../assets/tutorial/logo.svg')} />
         <View style={styles.headerOptions}>
+          <View>
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={groups}
+              search
+              maxHeight={300}
+              labelField="name"
+              valueField="id"
+              placeholder="Selecione o item"
+              searchPlaceholder="Pesquisar..."
+              value={grupo}
+              onChange={item => {
+                setGrupo(item.id);
+              }}
+              // renderLeftIcon={() => (
+              //   <AntDesign style={styles.icon} color="white" name="Safety" size={20} />
+              // )}
+            />
+          </View>
           <Ionicons name="heart-outline" size={24} style={{ color: '#fff' }} />
           <Feather name="message-circle" size={24} color="white" />
         </View>
@@ -299,5 +340,31 @@ const styles = StyleSheet.create({
   },
   contentFooterText3: {
     fontSize: 10,
+  },
+  //DROPDOWN
+  dropdown: {
+    margin: 16,
+    height: 50,
+    width: 150,
+    // borderBottomColor: 'gray',
+    // borderBottomWidth: 0.5,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    color: 'white',
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });

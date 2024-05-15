@@ -42,6 +42,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="groups"
+        options={{
+          title: 'Grupos',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'people' : 'people-outline'} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
