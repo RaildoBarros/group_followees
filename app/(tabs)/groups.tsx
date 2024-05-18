@@ -4,6 +4,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { getGroups } from "@/services/api.service";
 import { Ionicons } from "@expo/vector-icons";
+import { ListItem, Avatar } from 'react-native-elements';
+import { Link } from 'expo-router';
 
 
 export default function GroupsScreen() {
@@ -25,21 +27,29 @@ export default function GroupsScreen() {
     }, []);
 
     return (
-        <ThemedView style={styles.container}>
-            <ThemedView style={styles.header}>
-                <Ionicons name="arrow-back" size={24} color="white" />
-                <ThemedText>Grupos</ThemedText>
-            </ThemedView>
-            <FlatList
-                data={groups}
-                keyExtractor={(item) => String(item)}
-                renderItem={({ item }) => (
-                    <ThemedView>
-                        <ThemedText>{`${item.id} - ${item.name}`}</ThemedText>
-                    </ThemedView>
-                )}
-            />
-        </ThemedView>
+        <ThemedView>
+            <ThemedText>Grupos</ThemedText>
+            {
+                groups.map((g, i) => (
+                    <Link
+                        href={{
+                            pathname: "group/[id]",
+                            params: { id: g.id }
+                        }}
+                    >
+                        <ListItem key={i} bottomDivider style={{width: '100%', backgroundColor: 'red'}}>
+
+                            <ListItem.Content>
+
+                                <ListItem.Title>{g.name}</ListItem.Title>
+                            </ListItem.Content>
+
+                        </ListItem>
+                    </Link>
+
+                ))
+            }
+        </ThemedView >
     )
 }
 

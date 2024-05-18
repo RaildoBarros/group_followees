@@ -1,41 +1,58 @@
-import React, { useCallback, useRef, useMemo } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
-import BottomSheet, { BottomSheetView } from "@gorhom/.bottom-sheet-1WgOr4H9";
+import React, { useState } from 'react';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { SearchBar, CheckBox } from 'react-native-elements';
+
+const groups = [
+  { id: '1', name: 'Grupo de Amigos' },
+  { id: '2', name: 'Família' },
+  { id: '3', name: 'Trabalho' },
+  { id: '4', name: 'Escola' },
+];
 
 const App = () => {
-  // hooks
-  const sheetRef = useRef<BottomSheet>(null);
+  const [search, setSearch] = useState('');
+  const [selectedGroups, setSelectedGroups] = useState([]);
 
-  // variables
-  const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
+  const updateSearch = (search) => {
+    setSearch(search);
+  };
 
-  // callbacks
-  const handleSheetChange = useCallback((index) => {
-    console.log("handleSheetChange", index);
-  }, []);
-  const handleSnapPress = useCallback((index) => {
-    sheetRef.current?.snapToIndex(index);
-  }, []);
-  const handleClosePress = useCallback(() => {
-    sheetRef.current?.close();
-  }, []);
+  const handleCheckboxToggle = (id) => {
+    if (selectedGroups.includes(id)) {
+      setSelectedGroups(selectedGroups.filter(groupId => groupId !== id));
+    } else {
+      setSelectedGroups([...selectedGroups, id]);
+    }
+  };
 
-  // render
+  const filteredGroups = groups.filter(group =>
+    group.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
-      <Button title="Snap To 90%" onPress={() => handleSnapPress(2)} />
-      <Button title="Snap To 50%" onPress={() => handleSnapPress(1)} />
-      <Button title="Snap To 25%" onPress={() => handleSnapPress(0)} />
-      <Button title="Close" onPress={() => handleClosePress()} />
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        onChange={handleSheetChange}
-      >
-        <BottomSheetView>
-          <Text>Awesome 🔥</Text>
-        </BottomSheetView>
-      </BottomSheet>
+      <SearchBar
+        placeholder="Buscar grupos..."
+        onChangeText={updateSearch}
+        value={search}
+        lightTheme
+        round
+      />
+      <FlatList
+        data={filteredGroups}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <CheckBox
+            title={item.name}
+            checked={selectedGroups.includes(item.id)}
+            onPress={() => handleCheckboxToggle(item.id)}
+            containerStyle={styles.checkboxContainer}
+            textStyle={styles.checkboxText}
+            checkedIcon="check-square"
+            uncheckedIcon="square-o"
+          />
+        )}
+      />
     </View>
   );
 };
@@ -43,7 +60,14 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 200,
+    backgroundColor: '#fff',
+  },
+  checkboxContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+  },
+  checkboxText: {
+    fontSize: 18,
   },
 });
 
