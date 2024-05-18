@@ -5,7 +5,7 @@ const Api = axios.create({
 });
 
 
-export const getFollowees = async () => {
+export const getFolloweesGroup = async () => {
   try {
     const response = await Api.get('followee/');
     return response.data;
@@ -31,6 +31,16 @@ export const getGroupDetail = async (id:number) => {
     return response.data;
   } catch (error) {
     console.error('Erro ao pegar os detalhes do grupo ', error);
+    throw error;
+  }
+};
+
+export const getFollowees = async (username:string) => {
+  try {
+    const response = await Api.get(`followees/${username}/`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao pegar os followees do usuário ' + username, error);
     throw error;
   }
 };

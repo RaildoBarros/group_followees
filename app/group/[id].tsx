@@ -6,13 +6,6 @@ import { getGroupDetail } from '@/services/api.service';
 import { SearchBar, CheckBox } from 'react-native-elements';
 
 
-const profiles = [
-  { id: '1', name: 'Supermercado 1' },
-  { id: '2', name: 'Supermercado 2' },
-  { id: '3', name: 'Sushi 1' },
-  { id: '4', name: 'Sushi 2' },
-];
-
 const GroupDetailsScreen = () => {
   const { id } = useLocalSearchParams();
 
