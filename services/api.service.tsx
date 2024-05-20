@@ -44,3 +44,13 @@ export const getFollowees = async (username:string) => {
     throw error;
   }
 };
+
+export const getUserDetail = async (username:string) => {
+  try {
+    const response = await Api.get(`users/${username}/`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao pegar os followees do usuário ' + username, error);
+    throw error;
+  }
+};
