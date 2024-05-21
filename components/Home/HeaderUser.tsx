@@ -1,26 +1,19 @@
-// Header.tsx
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { ThemedView } from '../ThemedView';
 import { ThemedText } from '../ThemedText';
-// Se estiver usando react-native-fast-image
-// import FastImage from 'react-native-fast-image';
 
 interface HeaderProps {
-    username: string;
-    fotoUrl: string;
+    user: User;
 }
 
 
-const HeaderUser: React.FC<HeaderProps> = ({ username, fotoUrl }) => {
+const HeaderUser: React.FC<HeaderProps> = ({ user }) => {
+    console.log(user);
     return (
         <ThemedView style={styles.container}>
-            <ThemedText style={styles.username}>{username}</ThemedText>
-            <Image
-                source={{ uri: fotoUrl }}
-                style={styles.image}
-            />
-            
+            <ThemedText style={styles.username}>{ user.username }</ThemedText>
+            <Image source={{ uri: user.profile_pic_url }} style={styles.image} />
         </ThemedView>
     );
 };
@@ -35,23 +28,14 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     image: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        // marginRight: 16,
+        width: 30,
+        height: 30,
+        borderRadius: 15,
     },
     username: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: 'bold',
     },
 });
 
 export default HeaderUser;
-
-
-
-
-{/* <ThemedView>
-          <Text>{user?.full_name}</Text>
-          <Image source={{ uri: user?.profile_pic_url }} style={styles.profile_pic}/>
-        </ThemedView> */}

@@ -1,6 +1,6 @@
 interface Post {
     postid: string;
-    user: string;
+    owner_username: string;
     profile_pic_url: string;
     post_pic_url: string;
     caption?: string;

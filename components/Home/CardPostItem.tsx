@@ -16,7 +16,7 @@ const CardPostItem: React.FC<CardProps> = ({ post }) => {
                         style={styles.contentHeaderLeftImage}
                         source={{ uri: post.profile_pic_url }}
                     />
-                    <Text style={styles.contentHeaderLeftText}>Rodrigo Lucas</Text>
+                    <Text style={styles.contentHeaderLeftText}>{ post.owner_username}</Text>
                 </View>
             </View>
             <View style={styles.contentImage}>

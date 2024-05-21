@@ -64,3 +64,13 @@ export const getPosts = async (username:string, group:number) => {
     throw error;
   }
 };
+
+export const getStories = async (username:string, group:number) => {
+  try {
+    const response = await Api.get(`stories/${username}/${group}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao pegar os stories de grupo do usuário ' + username, error);
+    throw error;
+  }
+};
