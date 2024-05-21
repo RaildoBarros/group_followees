@@ -1,8 +1,8 @@
 // Header.tsx
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { ThemedView } from './ThemedView';
-import { ThemedText } from './ThemedText';
+import { ThemedView } from '../ThemedView';
+import { ThemedText } from '../ThemedText';
 // Se estiver usando react-native-fast-image
 // import FastImage from 'react-native-fast-image';
 

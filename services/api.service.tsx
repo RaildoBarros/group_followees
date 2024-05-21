@@ -50,7 +50,17 @@ export const getUserDetail = async (username:string) => {
     const response = await Api.get(`users/${username}/`);
     return response.data;
   } catch (error) {
-    console.error('Erro ao pegar os followees do usuário ' + username, error);
+    console.error('Erro ao pegar os detalhes do usuário ' + username, error);
+    throw error;
+  }
+};
+
+export const getPosts = async (username:string, group:number) => {
+  try {
+    const response = await Api.get(`posts/${username}/${group}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao pegar os posts de grupo do usuário ' + username, error);
     throw error;
   }
 };

@@ -1,5 +1,5 @@
 // Header.tsx
-import HeaderUser from '@/components/HeaderUser';
+import HeaderUser from '@/components/Home/HeaderUser';
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 

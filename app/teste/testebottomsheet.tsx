@@ -1,4 +1,4 @@
-import BottomSheetComponent from "@/components/BottomSheet";
+import BottomSheetComponent from "@/components/Home/BottomSheet";
 import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet";
 import { useRef } from "react";
 import { View, StyleSheet } from 'react-native';
